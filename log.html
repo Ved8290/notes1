@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        #for:hover{
+            color: blue;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <br><br>
+    <div class="flex justify-center">
+        <div class="flex flex-col justify-center items-center md:flex-row shadow rounded-xl max-w-7xl w-[90%]  m-2">
+            <div class=" w-full md:w-3/4">
+                <div class="text-xl cursor-pointer flex flex-col justify-center items-center mt-5 md:mt-0 py-4">
+
+                    <h1 class="font-semibold text-xl md:text-5xl text-gray-600 m-2">Login to your account</h1>
+                   
+
+
+                </div>
+                <div class="flex flex-col justify-center items-center m-2 space-y-6 md:space-y-8">
+                    <div class="">
+                        <input type="text" placeholder="User Email Id" id="email"
+                            class=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-blue-600 focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]" >
+                    </div>
+                    <div class="">
+                        <input type="password" placeholder="Password" id="password"
+                            class=" bg-gray-100 rounded-lg px-5 py-2 focus:border border-blue-600 focus:outline-none text-black placeholder:text-gray-600 placeholder:opacity-50 font-semibold md:w-72 lg:w-[340px]">
+                    </div>
+                    <input type="checkbox" onclick="showpassword()"> show password 
+                </div>
+                
+                <div class="text-center mt-7">
+                    <button id="login"
+                        class=" px-24 md:px-[118px] lg:px-[140px] py-2 rounded-md text-white bg-blue-600 font-medium m-2 mb-6 ">login
+                        </button>
+                        <p id="frog">Forgot Password</p>
+                </div>
+
+                <div class="text-center mt-7">
+                   <a href="new.html"> <button id="new"
+                        class=" px-24 md:px-[118px] lg:px-[140px] py-2 rounded-md text-white bg-blue-600 font-medium m-2 mb-6 ">New User
+                       </button></a>
+                </div>
+                
+            </div>
+           
+        </div>
+    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/290d4f0eb4.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+ 
+
+    <script>
+        function showpassword(){
+            var x=document.getElementById("password");
+            if(x.type==="password"){
+                x.type="text"
+            }else{
+                x.type="password";
+
+            }}
+
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase/auth"></script>
+
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase/auth"></script>
+
+    <script type="module" >
+
+        
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword , sendPasswordResetEmail  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyCHPiWo28mcgmDwmSQ7OaDNKvLb3w6_DBc",
+    authDomain: "notes-user.firebaseapp.com",
+    projectId: "notes-user",
+    storageBucket: "notes-user.appspot.com",
+    messagingSenderId: "1065283327239",
+    appId: "1:1065283327239:web:f78f42e7832df43f65a1a2"
+  };
+
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+
+  
+  
+  
+
+  document.getElementById("login").addEventListener('click',(e)=>{
+    var email=document.getElementById("email").value;
+var password=document.getElementById("password").value; 
+
+
+
+signInWithEmailAndPassword(auth, email, password)
+.then((userCredential) => {
+// Signed in 
+const user = userCredential.user;
+alert("Login Successful");
+window.location.replace("main.html")
+// ...
+})
+.catch((error) => {
+const errorCode = error.code;
+const errorMessage = error.message;
+alert(error.message)
+// ..
+});
+  })
+
+
+  document.getElementById("frog").addEventListener('click',()=>{
+var email=document.getElementById("email").value;
+    sendPasswordResetEmail(auth, email)
+  .then(() => {
+  alert("Password reset email sent to your email !");
+    // ..
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+
+
+  })
+
+  document.getElementById("new").addEventListener('click',(e)=>{
+
+  })
+
+
+  
+
+
+</script>
+
+
+
+</body>
+</html>
